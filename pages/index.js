@@ -44,7 +44,7 @@ const IndexPage = ( props ) => {
 			</Head>
 			<div className="p-2.5">
 				<div className="mb-2.5">
-					<p className="text-3xl font-bold">Nifty 50</p>
+					<h1 className="text-3xl font-bold">Nifty 50</h1>
 				</div>
 				{ renderStocks() }
 				<div className="flex items-center flex-col mt-5">

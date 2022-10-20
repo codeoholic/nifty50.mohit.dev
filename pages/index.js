@@ -51,8 +51,11 @@ const IndexPage = ( props ) => {
 					<p className="text-xs">Backend on Cloudflare Serverless</p>
 					<p className="text-xs">Frontend on NextJS, deployed on Vercel</p>
 					<p className="text-xs">Stock data by Yahoo Finance</p>
+					<div className="text-center mt-2.5">
+						<p className="text-[8px] italic">cached data, updates hourly</p>
+					</div>
 					<div className="mt-2.5">
-						<p className="text-2xl">🐆</p>
+						<p className="text-4xl">🐆</p>
 					</div>
 				</div>
 			</div>

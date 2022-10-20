@@ -43,13 +43,19 @@ const IndexPage = ( props ) => {
 				<meta name="robots" content="index, follow" />
 			</Head>
 			<div className="p-2.5">
+				<div className="mb-2.5">
+					<h1 className="text-3xl font-bold">Nifty 50</h1>
+				</div>
 				{ renderStocks() }
 				<div className="flex items-center flex-col mt-5">
-					<p className="text-xs">Backend on Cloudflare Servless</p>
+					<p className="text-xs">Backend on Cloudflare Serverless</p>
 					<p className="text-xs">Frontend on NextJS, deployed on Vercel</p>
 					<p className="text-xs">Stock data by Yahoo Finance</p>
+					<div className="text-center mt-2.5">
+						<p className="text-[8px] italic">cached data, updates hourly</p>
+					</div>
 					<div className="mt-2.5">
-						<p className="text-2xl">🐆</p>
+						<p className="text-4xl">🐆</p>
 					</div>
 				</div>
 			</div>

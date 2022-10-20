@@ -1,3 +1,5 @@
+import Head from "next/head"
+
 const IndexPage = ( props ) => {
 
 	const { data } = props 
@@ -34,17 +36,24 @@ const IndexPage = ( props ) => {
 	}
 	return (
 
-		<div className="p-2.5">
-			{ renderStocks() }
-			<div className="flex items-center flex-col mt-5">
-				<p className="text-xs">Backend on Cloudflare Servless</p>
-				<p className="text-xs">Frontend on NextJS, deployed on Vercel</p>
-				<p className="text-xs">Stock data by Yahoo Finance</p>
-				<div className="mt-2.5">
-					<p className="text-2xl">🐆</p>
+		<>
+			<Head>
+				<title>Nifty 50 | mohit.dev</title>
+				<meta name="viewport" content="initial-scale=1.0, width=device-width" />
+				<meta name="robots" content="index, follow" />
+			</Head>
+			<div className="p-2.5">
+				{ renderStocks() }
+				<div className="flex items-center flex-col mt-5">
+					<p className="text-xs">Backend on Cloudflare Servless</p>
+					<p className="text-xs">Frontend on NextJS, deployed on Vercel</p>
+					<p className="text-xs">Stock data by Yahoo Finance</p>
+					<div className="mt-2.5">
+						<p className="text-2xl">🐆</p>
+					</div>
 				</div>
 			</div>
-		</div>
+		</>
 
 	)
 

@@ -1,4 +1,8 @@
 import Head from "next/head"
+import Image from "next/image"
+import Link from "next/link"
+
+const githubIcon = require("../assets/github.svg")
 
 const IndexPage = ( props ) => {
 
@@ -54,6 +58,19 @@ const IndexPage = ( props ) => {
 					<div className="text-center mt-2.5">
 						<p className="text-[8px] italic">cached data, updates hourly</p>
 					</div>
+					<Link href="https://github.com/codeoholic" passHref>
+						<a target="_blank">
+							<div className="w-5 h-5 relative mt-5">
+								<Image
+									alt="github icon"
+									layout={"fill"}
+									objectFit={"contain"}
+									src={ githubIcon }
+									unoptimised
+								/>
+							</div>
+						</a>
+					</Link>
 					<div className="mt-2.5">
 						<p className="text-4xl">🐆</p>
 					</div>
@@ -69,8 +86,6 @@ export async function getServerSideProps( context ) {
 
     const response = await fetch("https://nifty50-api.mohit.dev/")
 	const response_json = await response.json()
-
-    console.log( response_json )
     return {
 
         props: response_json

@@ -2,6 +2,7 @@ import '../styles/globals.css'
 import { useEffect } from "react"
 import { useRouter } from "next/router"
 import * as Fathom from "fathom-client"
+import Head from "next/head"
 
 function MyApp({ Component, pageProps }) {
 
@@ -32,7 +33,14 @@ function MyApp({ Component, pageProps }) {
 
 	}, [])
 
-  	return <Component {...pageProps} />
+  	return (
+		<>
+			<Head>
+        		<link rel="shortcut icon" href="/nifty50.png" />
+      		</Head>
+			<Component {...pageProps} />
+		</>
+	)
 
 }
 

@@ -69,8 +69,6 @@ export async function getServerSideProps( context ) {
 
     const response = await fetch("https://nifty50-api.mohit.dev/")
 	const response_json = await response.json()
-
-    console.log( response_json )
     return {
 
         props: response_json

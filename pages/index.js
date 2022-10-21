@@ -2,38 +2,128 @@ import Head from "next/head"
 import Image from "next/image"
 import Link from "next/link"
 
+import { setCookie, getCookies } from "cookies-next"
+import React from "react"
+
+import StockItem from "../components/stock/StockItem"
 const githubIcon = require("../assets/github.svg")
 
 const IndexPage = ( props ) => {
 
-	const { data } = props 
-	const renderStocks = () => {
+	const { data } = props
+	let filter_data = getCookies("data")
+	const [ state, updateState ] = React.useState({
+
+		data: [],
+		filter: ""
+
+	})
+
+	React.useEffect(() => {
+
+		updateState({
+
+			...state,
+			data,
+
+		})
+
+	}, [ data ])
+
+	const filterStock = ( stock ) => {
+
+		let data = getCookies("data")
+		if( Object.keys(data).length > 0) {
+			data = JSON.parse(decodeURIComponent(data.data) )
+			const stock_filtered_flag = data.indexOf( stock )
+			if( stock_filtered_flag !== -1 ){
+
+				data.splice( stock_filtered_flag, 1 )
+
+			} else {
+
+				data.push( stock )
+
+			}
+			
+			setCookie("data", data)
+
+		} else {
+
+			data = [stock]
+			setCookie("data", data)
+
+		}
+		updateState({
+
+			...state,
+			filter: encodeURIComponent( data )
+
+		})
+
+	}
+	const RenderStocks = ( props ) => {
+
+		let {
+
+			filter_data
+
+		} = props
 
 		var stock = []
-		data.map( ( value ) => {
+		var filtered = []
+		if( Object.keys(filter_data).length > 0) {
 
-			stock.push(
-				<div className={`${ value.change_number > 0 ? "bg-emerald-400 border p-5 flex flex-col text-center rounded border-emerald-500" : "bg-rose-400 border border-rose-500 p-5 flex flex-col text-center rounded"}`}>
-					<div className="h-16">
-						<p className="text-sm md:text-xl text-slate-900">{ value.stock_name}</p>
-					</div>
-					<div className="flex flex-col">
-						<p className="text-sm md:text-2xl font-semibold">{ value.change_number > 0 ? "+" + value.change_number : value.change_number } ({ value.change_percentage })</p>
-					</div>
-					<div className="flex justify-between mt-5">
-						<p className="text-xs">₹{ value.price}</p>
-						<p className="text-xs">{ value.market_cap }</p>
-					</div>
-				</div>
-			)
+			filter_data = JSON.parse(decodeURIComponent(filter_data.data) )
+
+		} else {
+
+			filter_data = []
+
+		}
+		state.data.map( ( value ) => {
+
+			if( filter_data.indexOf( value.stock ) === -1 ){
+
+				stock.push(
+					<StockItem data={ value } filterStock={ filterStock }/>
+				)
+
+			} else {
+
+				filtered.push(
+					<StockItem data={ value } filterStock={ filterStock }/>
+				)
+
+			}
 
 		})
 
 		return (
 
-			<div className="grid grid-cols-2 md:grid-cols-4 gap-2.5">
-				{ stock }
-			</div>
+			<>
+				{
+
+					filtered.length > 0 &&
+					<div className="mb-5">
+						<h2 className="text-xl font-semibold text-slate-800">Screening</h2>
+						<div className="grid grid-cols-2 md:grid-cols-4 gap-2.5 mt-2.5">
+							{ filtered }
+						</div>
+					</div>
+
+				}
+				{
+
+					<div>
+						<h2 className="text-xl font-semibold text-slate-800">Stocks</h2>
+						<div className="grid grid-cols-2 md:grid-cols-4 gap-2.5 mt-2.5">
+							{ stock }
+						</div>
+					</div>
+
+				}
+			</>
 
 		)
 
@@ -50,7 +140,9 @@ const IndexPage = ( props ) => {
 				<div className="mb-2.5">
 					<h1 className="text-3xl font-bold">Nifty 50</h1>
 				</div>
-				{ renderStocks() }
+				<RenderStocks
+					filter_data={ filter_data }
+				/>
 				<div className="flex items-center flex-col mt-5">
 					<p className="text-xs">Backend on Cloudflare Serverless</p>
 					<p className="text-xs">Frontend on NextJS, deployed on Vercel</p>

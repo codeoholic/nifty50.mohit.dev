@@ -12,7 +12,7 @@ function MyApp({ Component, pageProps }) {
 		Fathom.load("XZYPYEXT",{
 
 			excludedDomains:["localhost"],
-			url:"https://inventive-elastic.mohit.dev/script.js",
+			url:"https://intuitive-encouraging.mohit.dev/script.js",
 
 		})
 
